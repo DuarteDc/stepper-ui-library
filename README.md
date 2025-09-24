@@ -1,69 +1,95 @@
-# React + TypeScript + Vite
+# stepper-ui
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Un componente de **Stepper** sencillo y personalizable para React.
 
-Currently, two official plugins are available:
+[![npm version](https://img.shields.io/npm/v/stepper-ui.svg)](https://www.npmjs.com/package/stepper-ui)
+[![npm downloads](https://img.shields.io/npm/dm/stepper-ui.svg)](https://www.npmjs.com/package/stepper-ui)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Instalación
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install stepper-ui
+# o
+yarn add stepper-ui
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔧 Uso básico
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```tsx
+import React from "react";
+import { Stepper } from "stepper-ui";
+
+const steps = [
+  { label: "Información Personal" },
+  { label: "Detalles de Contacto" },
+  { label: "Confirmación" },
+];
+
+export default function App() {
+  return (
+    <div>
+      <h1>Ejemplo Stepper</h1>
+      <Stepper steps={steps} activeStep={1} />
+    </div>
+  );
+}
 ```
+
+---
+
+## 📌 Props
+
+| Prop          | Tipo                   | Descripción                                               | Default     |
+| ------------- | ---------------------- | --------------------------------------------------------- | ----------- |
+| `steps`       | `Array<{label}>`       | Lista de pasos a mostrar en el Stepper                    | `[]`        |
+| `activeStep`  | `number`               | Índice del paso activo (inicia en `0`)                    | `0`         |
+| `onStepClick` | `(index:number)=>void` | Callback opcional cuando el usuario hace click en un paso | `undefined` |
+
+---
+
+## 🎨 Estilos
+
+El componente incluye estilos básicos, pero puedes sobreescribirlos usando tu propio CSS o con frameworks como **Tailwind**.
+
+Ejemplo:
+
+```css
+.stepper {
+  display: flex;
+  gap: 1rem;
+}
+
+.stepper-step {
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.stepper-step.active {
+  background-color: #007bff;
+  color: white;
+}
+```
+
+---
+
+## 🛠 Desarrollo local
+
+Clonar el repositorio y probar el componente en un proyecto de ejemplo:
+
+```bash
+git clone https://github.com/DuarteDc/stepper-ui-library
+cd stepper-ui
+npm install
+npm run dev
+```
+
+---
+
+## 📄 Licencia
+
+MIT © [DuarteDc](https://github.com/DuarteDc)
