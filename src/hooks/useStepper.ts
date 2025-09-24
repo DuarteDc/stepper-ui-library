@@ -21,11 +21,19 @@ export const useStepper = ({ stepsComponent }: Props) => {
     }
   }
 
+  const backStep = () => (step < 1 ? undefined : setStep(prev => prev - 1))
+
   const navigateTo = useCallback((step: number) => setStep(step), [])
   const goToInitialStep = useCallback(() => setStep(0), [])
 
+  const { component, name } = stepsComponent[step]
+
   return {
     step,
+    Component: component,
+    componentName: name,
+    stepRef: stepRefComponents[step],
+    backStep,
     nextStep,
     navigateTo,
     goToInitialStep
