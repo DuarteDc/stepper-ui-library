@@ -2,16 +2,15 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import react from '@vitejs/plugin-react-swc'
-import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(), dts({ rollupTypes: true })],
+  plugins: [react(), dts({ rollupTypes: true })],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/main.js'),
-      name: 'stepper',
-      fileName: format => `stepper.${format}.js`
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: 'stepper-ui',
+      fileName: 'stepper-ui'
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
@@ -19,7 +18,9 @@ export default defineConfig({
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
-          'react/jsx-runtime': 'jsxRuntime'
+          'react/jsx-runtime': 'react/jsx-runtime',
+          clsx: 'clsx',
+          'tailwind-merge': 'tailwind-merge'
         }
       }
     }

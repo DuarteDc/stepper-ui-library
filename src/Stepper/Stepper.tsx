@@ -4,17 +4,16 @@ import { useStepper } from '../hooks/useStepper'
 import { getSizeByStep } from '../utils/getSizeByStep'
 import { cn } from '../utils/mergeClass'
 
-interface RenderButtonsProps {
+export interface RenderButtonsProps {
   step: number
   nextStep: () => void
   backStep: () => void
   totalSteps: number
 }
 
-interface StepperProps {
+export interface StepperProps {
   steps: Array<StepComponentProps>
   renderButtons: (props: RenderButtonsProps) => ReactNode | ReactNode[]
-  showProgress?: boolean
   wrapperClassName?:
     | React.HTMLAttributes<HTMLDivElement>['className']
     | undefined
@@ -45,7 +44,7 @@ export const Stepper = ({
             className='mx-1 flex w-full justify-center relative before:absolute before:right-0 before:w-full before:top-1/2 before:bottom-1/2 before:h-1 before:-z-10  before:bg-white min-w-[6rem]'
           >
             {renderStepIcon ? (
-              renderStepIcon(index, index + 1 === step, index + 1 < step)
+              renderStepIcon(index, index === step, index < step)
             ) : (
               <span
                 onClick={() => {
@@ -53,8 +52,8 @@ export const Stepper = ({
                     navigateTo(index)
                   }
                 }}
-                className={`rounded-full border-2 text-[10px] lg:text-base font-bold ${
-                  step >= index ? 'border' : 'text-gray-500'
+                className={`rounded-full text-[10px] lg:text-base font-bold bg-white ${
+                  step < index && 'text-gray-500'
                 } px-2 py-1 lg:px-4 lg:py-2 flex text-center justify-center items-center transition-all duration-400 ${
                   step > index && 'cursor-pointer'
                 }`}
@@ -69,7 +68,7 @@ export const Stepper = ({
                   ) : (
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
-                      className='w-4 h-4 text-green-500'
+                      className='w-4 h-4'
                       fill='none'
                       viewBox='0 0 24 24'
                       stroke='currentColor'
