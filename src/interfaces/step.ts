@@ -12,13 +12,10 @@ export interface StepperContextProps {
   goToInitialStep: () => void
 }
 
-export interface ComponentContextProps {
-  props: StepperContextProps
-}
 export interface StepComponentProps {
   name: string
   component: ForwardRefExoticComponent<
-    ComponentContextProps & RefAttributes<ValidateStep>
+    StepperContextProps & RefAttributes<ValidateStep>
   >
   icon?: React.ReactNode
 }

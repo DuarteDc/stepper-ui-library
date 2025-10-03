@@ -98,7 +98,7 @@ export const Stepper = ({
       </div>
       <Component
         ref={stepRef}
-        props={{
+        {...{
           nextStep,
           backStep,
           step,

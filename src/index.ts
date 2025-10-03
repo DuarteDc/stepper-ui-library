@@ -3,4 +3,8 @@ export {
   type RenderButtonsProps,
   type StepperProps
 } from './Stepper/Stepper'
-export type { StepComponentProps, ValidateStep } from './interfaces/step'
+export type {
+  StepComponentProps,
+  ValidateStep,
+  StepperContextProps
+} from './interfaces/step'
