@@ -18,6 +18,7 @@ export interface StepperProps {
     | React.HTMLAttributes<HTMLDivElement>['className']
     | undefined
   renderStepIcon?: (
+    label: string,
     step: number,
     active: boolean,
     completed: boolean
@@ -30,10 +31,17 @@ export const Stepper = ({
   wrapperClassName,
   renderStepIcon
 }: StepperProps) => {
-  const { Component, step, stepRef, nextStep, backStep, navigateTo } =
-    useStepper({
-      stepsComponent: steps
-    })
+  const {
+    Component,
+    step,
+    stepRef,
+    nextStep,
+    backStep,
+    navigateTo,
+    goToInitialStep
+  } = useStepper({
+    stepsComponent: steps
+  })
   return (
     <div className={cn('relative w-full overflow-hidden', wrapperClassName)}>
       <div className='w-full flex py-6 overflow-x-auto'>
@@ -44,7 +52,7 @@ export const Stepper = ({
             className='mx-1 flex w-full justify-center relative before:absolute before:right-0 before:w-full before:top-1/2 before:bottom-1/2 before:h-1 before:-z-10  before:bg-white min-w-[6rem]'
           >
             {renderStepIcon ? (
-              renderStepIcon(index, index === step, index < step)
+              renderStepIcon(name, index, index === step, index < step)
             ) : (
               <span
                 onClick={() => {
@@ -88,7 +96,16 @@ export const Stepper = ({
           </div>
         ))}
       </div>
-      <Component ref={stepRef} />
+      <Component
+        ref={stepRef}
+        props={{
+          nextStep,
+          backStep,
+          step,
+          goToInitialStep,
+          navigateTo
+        }}
+      />
       <div className='mt-20'>
         {renderButtons({
           nextStep,
