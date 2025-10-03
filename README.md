@@ -67,7 +67,7 @@ import { FormVehicles } from './FormVehicles';
 | `steps` | `StepComponentProps[]` | Array of steps for the Stepper. Each step has a name and a React component. | No |
 | `renderButtons` | `(props: RenderButtonsProps) => ReactNode \| ReactNode[]` | Function that receives `nextStep` and `backStep` methods and renders the navigation buttons. | No |
 | `wrapperClassName` | `string` | Additional TailwindCSS classes for the Stepper container. | Yes |
-| `renderStepIcon` | `(step: number, active: boolean, completed: boolean) => ReactNode` | Function to render a custom icon for each step. | Yes |
+| `renderStepIcon` | `(label:string, step: number, active: boolean, completed: boolean) => ReactNode` | Function to render a custom icon for each step. | Yes |
 
 ---
 
