@@ -1,6 +1,6 @@
 {
   "name": "stepper-ui",
-  "version": "1.3.0",
+  "version": "1.2.3",
   "description": "A customizable stepper component library for React with TailwindCSS.",
   "author": "DuarteBv",
   "keywords": [
@@ -9,8 +9,11 @@
     "ui",
     "tailwind",
     "component",
-    "library"
+    "library",
+    "typescript",
+    "vite"
   ],
+  "homepage": "https://portfolio-duartebv.netlify.app/demo/stepper-ui/",
   "license": "MIT",
   "main": "./dist/stepper-ui.umd.js",
   "module": "./dist/stepper-ui.mjs",

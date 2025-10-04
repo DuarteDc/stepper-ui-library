@@ -62,67 +62,81 @@ import { FormVehicles } from './FormVehicles';
 
 ### `StepperProps`
 
-| Prop | Type | Description | Optional |
-|------|------|-------------|----------|
-| `steps` | `StepComponentProps[]` | Array of steps for the Stepper. Each step has a name and a React component. | No |
-| `renderButtons` | `(props: RenderButtonsProps) => ReactNode \| ReactNode[]` | Function that receives `nextStep` and `backStep` methods and renders the navigation buttons. | No |
-| `wrapperClassName` | `string` | Additional TailwindCSS classes for the Stepper container. | Yes |
-| `renderStepIcon` | `(label:string, step: number, active: boolean, completed: boolean) => ReactNode` | Function to render a custom icon for each step. | Yes |
+| Prop               | Type                                                                             | Description                                                                                  | Optional |
+| ------------------ | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------- |
+| `steps`            | `StepComponentProps[]`                                                           | Array of steps for the Stepper. Each step has a name and a React component.                  | No       |
+| `renderButtons`    | `(props: RenderButtonsProps) => ReactNode \| ReactNode[]`                        | Function that receives `nextStep` and `backStep` methods and renders the navigation buttons. | No       |
+| `wrapperClassName` | `string`                                                                         | Additional TailwindCSS classes for the Stepper container.                                    | Yes      |
+| `renderStepIcon`   | `(label:string, step: number, active: boolean, completed: boolean) => ReactNode` | Function to render a custom icon for each step.                                              | Yes      |
 
 ---
 
 ### `StepComponentProps`
 
-| Prop | Type | Description | Optional |
-|------|------|-------------|----------|
-| `name` | `string` | Name of the step displayed in the Stepper. | No |
-| `component` | `ForwardRefExoticComponent<RefAttributes<ValidateStep>>` | React component for the step. Must implement `ValidateStep` if validation is needed. | No |
-| `icon` | `ReactNode` | Optional icon displayed next to the step name. | Yes |
+| Prop        | Type                                                                            | Description                                                                          | Optional |
+| ----------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | -------- |
+| `name`      | `string`                                                                        | Name of the step displayed in the Stepper.                                           | No       |
+| `component` | `ForwardRefExoticComponent<StepperContextProps & RefAttributes<ValidateStep>>;` | React component for the step. Must implement `ValidateStep` if validation is needed. | No       |
+| `icon`      | `ReactNode`                                                                     | Optional icon displayed next to the step name.                                       | Yes      |
 
 ---
 
 ### `RenderButtonsProps`
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `step` | `number` | Current step (0-based). |
-| `nextStep` | `() => void` | Function to go to the next step. |
-| `backStep` | `() => void` | Function to go back to the previous step. |
-| `totalSteps` | `number` | Total number of steps in the Stepper. |
+| Prop         | Type         | Description                               |
+| ------------ | ------------ | ----------------------------------------- |
+| `step`       | `number`     | Current step (0-based).                   |
+| `nextStep`   | `() => void` | Function to go to the next step.          |
+| `backStep`   | `() => void` | Function to go back to the previous step. |
+| `totalSteps` | `number`     | Total number of steps in the Stepper.     |
 
 ---
 
 ### `ValidateStep`
 
-| Method | Return | Description |
-|--------|--------|-------------|
+| Method        | Return                        | Description                                                                                       |
+| ------------- | ----------------------------- | ------------------------------------------------------------------------------------------------- |
 | `canContinue` | `boolean \| Promise<boolean>` | Indicates if the current step allows moving to the next step. Useful for asynchronous validation. |
+
+---
+
+### `StepperContextProps`
+
+| Prop              | Type         | Description                                                       |
+| ----------------- | ------------ | ----------------------------------------------------------------- |
+| `step`            | `number`     | Current step (0-based).                                           |
+| `nextStep`        | `() => void` | Function to go to the next step.                                  |
+| `backStep`        | `() => void` | Function to go back to the previous step.                         |
+| `navigateTo`      | `() => void` | Function to navigate directly to any step by its index (0-based). |
+| `goToInitialStep` | `() => void` | Function to go back to the first step (step 0).                   |
 
 ---
 
 ## Example of a Step Component with `forwardRef` and `ValidateStep`
 
 ```ts
-import { forwardRef, useImperativeHandle } from 'react';
-import type { ValidateStep } from 'stepper-ui';
+import { forwardRef, useImperativeHandle } from "react";
+import type { StepperContextProps, ValidateStep } from "stepper-ui";
 
-export const FormPersonData = forwardRef<ValidateStep>((props, ref) => {
-  // Expose methods to Stepper using ref
-  useImperativeHandle(ref, () => ({
-    canContinue: () => {
-      // Validation logic
-      return true; // or Promise<boolean> for async validation
-    }
-  }));
+export const FormPersonData = forwardRef<ValidateStep, StepperContextProps>(
+  (props, ref) => {
+    // Expose methods to Stepper using ref
+    useImperativeHandle(ref, () => ({
+      canContinue: () => {
+        // Validation logic
+        return true; // or Promise<boolean> for async validation
+      },
+    }));
 
-  return (
-    <div>
-      {/* Form content */}
-      <label>Name:</label>
-      <input type="text" />
-    </div>
-  );
-});
+    return (
+      <div>
+        {/* Form content */}
+        <label>Name:</label>
+        <input type="text" />
+      </div>
+    );
+  }
+);
 ```
 
 **Important notes:**
@@ -144,4 +158,3 @@ export const FormPersonData = forwardRef<ValidateStep>((props, ref) => {
 ## License
 
 MIT © DuarteBv
-
