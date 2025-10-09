@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react(), dts({ rollupTypes: true })],
   test: {
     environment: 'jsdom',
+    globals: true,
     setupFiles: './src/test/setup.ts'
   },
   build: {
