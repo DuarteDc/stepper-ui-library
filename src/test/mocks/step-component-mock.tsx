@@ -22,7 +22,17 @@ const secondMockComponent = forwardRef<ValidateStep, StepperContextProps>(
   }
 )
 
+const thirdMockComponent = forwardRef<ValidateStep, StepperContextProps>(
+  (_props, ref) => {
+    useImperativeHandle(ref, () => ({
+      canContinue: () => true
+    }))
+    return <div>Step Three</div>
+  }
+)
+
 export const stepsComponentMock: Array<StepComponentProps> = [
   { name: 'Step One', component: firtsMockComponent },
-  { name: 'Step Two', component: secondMockComponent }
+  { name: 'Step Two', component: secondMockComponent },
+  { name: 'Step Three', component: thirdMockComponent }
 ]
